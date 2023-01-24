@@ -48,9 +48,14 @@ body {
     background-color: lightblue;
 }
 
-.operator {
+.operator{
     flex: 1;
     background-color: lightgreen;
+}
+
+.operande {
+    flex: 1;
+    background-color: #ddaaff;
 }
 
 .clear {
@@ -61,7 +66,7 @@ body {
 
 .empty {
     flex: 1;
-   background-color: blue;
+   background-color: white;
 }
 
 button {
