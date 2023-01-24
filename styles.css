@@ -29,7 +29,7 @@ body {
     flex: 1;
     background-color: lightgray;
 }
-#memoryNumber{
+#memorisedNumber{
     font-size: 14px;
     margin: 0;
     padding-left: 5px;
@@ -55,7 +55,7 @@ body {
 
 .operande {
     flex: 1;
-    background-color: #ddaaff;
+    background-color: #ddff;
 }
 
 .clear {

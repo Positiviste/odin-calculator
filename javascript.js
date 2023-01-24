@@ -6,6 +6,9 @@ const activeNumber = document.querySelector("#activeNumber");
 const memorisedNumber = document.querySelector("#memorisedNumber");
 const clearAll = document.querySelector("#clearAll");
 const clear = document.querySelector("#clear");
+const switchSign = document.querySelector("#switchSign");
+const pointButton = document.querySelector("#point");
+
 
 function add(a, b) {
     return ((+a) + (+b));
@@ -20,29 +23,30 @@ function multiply(a, b) {
 }
 
 function divide(a, b) {
-    return ((+a) / (+b));
+    b ? ((+a) / (+b)) : error();
+}
+
+function error() {
+    result1 = "DIVIDE BY ZERO";
+    result2 = "DIVIDE BY ZERO";
+    activeOperator = "DIVIDE BY ZERO";
+    activeNumber.textContent = "DIVIDE BY ZERO";
+    memorisedNumber.textContent = "DIVIDE BY ZERO";
 }
 
 function operate() {
-    console.log(result1 + activeOperator + result2);
     switch (activeOperator) {
         case "plus": result1 = add(result1, result2);
-            result2 = 0;
             break;
         case "subtract": result1 = subtract(result1, result2);
-            result2 = 0;
             break;
         case "multiply": result1 = multiply(result1, result2);
-            result2 = 0;
             break;
         case "divide": result1 = divide(result1, result2);
-            result2 = 0;
             break;
-        // case "equal": result1 = result2
-        //     result2 = 0;
-        //     break;
     };
     memorisedNumber.textContent = result1;
+    activeNumber.textContent = result2;
 }
 
 function listenNumber() {
@@ -69,6 +73,8 @@ function listenOperator() {
             operate();
             if (this.id != "equal") {
                 activeOperator = this.id;
+                result2 = "0";
+                activeNumber.textContent = result2;
             }
         });
     });
@@ -80,18 +86,33 @@ function listenClear() {
         clear.addEventListener('click', function (clear) {
             result2 = "0";
             activeNumber.textContent = result2;
-            console.log("clear");
             if (this.id == "clearAll") {
                 result1 = "0";
                 memorisedNumber.textContent = result1;
                 activeOperator = "plus";
-                console.log("clearAll");
             }
         });
     });
 }
 
+function listenSign() {
+    switchSign.addEventListener('click', function () {
+        result2 *= -1;
+        activeNumber.textContent = result2;
+    });
+}
 
+function listenPoint() {
+    pointButton.addEventListener('click', function () {
+        if (!result2.toString().includes('.')) {
+            result2 += ".";
+            activeNumber.textContent = result2;
+        }
+    });
+}
+
+listenPoint();
+listenSign();
 listenNumber();
 listenOperator();
 listenClear();
