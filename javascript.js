@@ -125,9 +125,9 @@ function operatorActivated(operator) {
 
 function listenKeys() {
     document.addEventListener('keydown', (event) => {
-        let name = event.key;
-        let code = event.code;
-        console.log('key pressed : ' + name + "\r\n Key code value : " + code);
+        // let name = event.key;
+        // let code = event.code;
+        // console.log('key pressed : ' + name + "\r\n Key code value : " + code);
         switch (event.key) {
             case "0":
             case "1":
@@ -159,6 +159,13 @@ function listenKeys() {
             case "Enter":
             case "=":
                 operatorActivated("equal");
+                break;
+            case "Backspace":
+                result2 = result2.toString().slice(0, -1);
+                if (result2 == "") {
+                    result2 = "0";
+                }
+                activeNumber.textContent = result2;
                 break;
         }
     }, false);
