@@ -8,6 +8,8 @@ const clearAll = document.querySelector("#clearAll");
 const clear = document.querySelector("#clear");
 const switchSign = document.querySelector("#switchSign");
 const pointButton = document.querySelector("#point");
+const smileyButton = document.querySelector("#smiley");
+
 
 
 function add(a, b) {
@@ -23,15 +25,7 @@ function multiply(a, b) {
 }
 
 function divide(a, b) {
-    return (+b) ? ((+a) / (+b)) : error();
-}
-
-function error() {
-    result1 = "DIVIDE BY ZERO";
-    result2 = "DIVIDE BY ZERO";
-    activeOperator = "DIVIDE BY ZERO";
-    activeNumber.textContent = "DIVIDE BY ZERO";
-    memorisedNumber.textContent = "DIVIDE BY ZERO";
+    return ((+b) != 0) ? ((+a) / (+b)) : "DIVIDE BY ZERO";
 }
 
 function operate() {
@@ -45,6 +39,7 @@ function operate() {
         case "divide": result1 = divide(result1, result2);
             break;
     };
+    console.log(result1 + " + " + result2);
     memorisedNumber.textContent = result1;
     activeNumber.textContent = result2;
 }
@@ -99,6 +94,15 @@ function listenSign() {
 function listenPoint() {
     pointButton.addEventListener('click', function () {
         pointActivated();
+    });
+}
+
+function listenSmiley() {
+    smileyButton.addEventListener('click', function () {
+        result1 = "Positiviste";
+        result2 = "Positiviste";
+        memorisedNumber.textContent = result1;
+        activeNumber.textContent = result2;
     });
 }
 
@@ -177,3 +181,4 @@ listenSign();
 listenNumber();
 listenOperator();
 listenClear();
+listenSmiley();
