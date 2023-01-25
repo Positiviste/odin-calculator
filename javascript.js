@@ -23,7 +23,7 @@ function multiply(a, b) {
 }
 
 function divide(a, b) {
-    b ? ((+a) / (+b)) : error();
+    return (+b) ? ((+a) / (+b)) : error();
 }
 
 function error() {
@@ -53,8 +53,7 @@ function listenNumber() {
     const numberButton = document.querySelectorAll('.number');
     Array.from(numberButton).forEach(number => {
         number.addEventListener('click', function (number) {
-            result2 += this.id;
-            refreshActiveNumber()
+            numberActivated(this.id);
         });
     });
 }
@@ -70,12 +69,7 @@ function listenOperator() {
     const operatorButton = document.querySelectorAll('.operator');
     Array.from(operatorButton).forEach(operator => {
         operator.addEventListener('click', function (operator) {
-            operate();
-            if (this.id != "equal") {
-                activeOperator = this.id;
-                result2 = "0";
-                activeNumber.textContent = result2;
-            }
+            operatorActivated(this.id);
         });
     });
 }
@@ -104,13 +98,73 @@ function listenSign() {
 
 function listenPoint() {
     pointButton.addEventListener('click', function () {
-        if (!result2.toString().includes('.')) {
-            result2 += ".";
-            activeNumber.textContent = result2;
-        }
+        pointActivated();
     });
 }
 
+function pointActivated() {
+    if (!result2.toString().includes('.')) {
+        result2 += ".";
+        activeNumber.textContent = result2;
+    }
+}
+
+function numberActivated(num) {
+    result2 += num;
+    refreshActiveNumber()
+}
+
+function operatorActivated(operator) {
+    operate();
+    if (operator.id != "equal") {
+        activeOperator = operator;
+        result2 = "0";
+        activeNumber.textContent = result2;
+    }
+}
+
+function listenKeys() {
+    document.addEventListener('keydown', (event) => {
+        let name = event.key;
+        let code = event.code;
+        console.log('key pressed : ' + name + "\r\n Key code value : " + code);
+        switch (event.key) {
+            case "0":
+            case "1":
+            case "2":
+            case "3":
+            case "4":
+            case "5":
+            case "6":
+            case "7":
+            case "8":
+            case "9":
+                numberActivated(event.key);
+                break;
+            case ".":
+                pointActivated();
+                break;
+            case "+":
+                operatorActivated("plus");
+                break;
+            case "-":
+                operatorActivated("subtract");
+                break;
+            case "*":
+                operatorActivated("multiply");
+                break;
+            case "/":
+                operatorActivated("divide");
+                break;
+            case "Enter":
+            case "=":
+                operatorActivated("equal");
+                break;
+        }
+    }, false);
+}
+
+listenKeys();
 listenPoint();
 listenSign();
 listenNumber();
