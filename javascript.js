@@ -10,8 +10,6 @@ const switchSign = document.querySelector("#switchSign");
 const pointButton = document.querySelector("#point");
 const smileyButton = document.querySelector("#smiley");
 
-
-
 function add(a, b) {
     return ((+a) + (+b));
 }
@@ -39,7 +37,6 @@ function operate() {
         case "divide": result1 = divide(result1, result2);
             break;
     };
-    console.log(result1 + " + " + result2);
     memorisedNumber.textContent = result1;
     activeNumber.textContent = result2;
 }
@@ -51,13 +48,6 @@ function listenNumber() {
             numberActivated(this.id);
         });
     });
-}
-
-function refreshActiveNumber() {
-    if (!result2.includes(".")) {
-        result2 = Math.round(result2);
-    }
-    activeNumber.textContent = result2;
 }
 
 function listenOperator() {
@@ -82,49 +72,6 @@ function listenClear() {
             }
         });
     });
-}
-
-function listenSign() {
-    switchSign.addEventListener('click', function () {
-        result2 *= -1;
-        activeNumber.textContent = result2;
-    });
-}
-
-function listenPoint() {
-    pointButton.addEventListener('click', function () {
-        pointActivated();
-    });
-}
-
-function listenSmiley() {
-    smileyButton.addEventListener('click', function () {
-        result1 = "Positiviste";
-        result2 = "Positiviste";
-        memorisedNumber.textContent = result1;
-        activeNumber.textContent = result2;
-    });
-}
-
-function pointActivated() {
-    if (!result2.toString().includes('.')) {
-        result2 += ".";
-        activeNumber.textContent = result2;
-    }
-}
-
-function numberActivated(num) {
-    result2 += num;
-    refreshActiveNumber()
-}
-
-function operatorActivated(operator) {
-    operate();
-    if (operator.id != "equal") {
-        activeOperator = operator;
-        result2 = "0";
-        activeNumber.textContent = result2;
-    }
 }
 
 function listenKeys() {
@@ -173,6 +120,56 @@ function listenKeys() {
                 break;
         }
     }, false);
+}
+
+function listenSign() {
+    switchSign.addEventListener('click', function () {
+        result2 *= -1;
+        activeNumber.textContent = result2;
+    });
+}
+
+function listenPoint() {
+    pointButton.addEventListener('click', function () {
+        pointActivated();
+    });
+}
+
+function listenSmiley() {
+    smileyButton.addEventListener('click', function () {
+        result1 = "Positiviste";
+        result2 = "Positiviste";
+        memorisedNumber.textContent = result1;
+        activeNumber.textContent = result2;
+    });
+}
+
+function refreshActiveNumber() {
+    if (!result2.includes(".")) {
+        result2 = Math.round(result2);
+    }
+    activeNumber.textContent = result2;
+}
+
+function pointActivated() {
+    if (!result2.toString().includes('.')) {
+        result2 += ".";
+        activeNumber.textContent = result2;
+    }
+}
+
+function numberActivated(num) {
+    result2 += num;
+    refreshActiveNumber()
+}
+
+function operatorActivated(operator) {
+    operate();
+    if (operator.id != "equal") {
+        activeOperator = operator;
+        result2 = "0";
+        activeNumber.textContent = result2;
+    }
 }
 
 listenKeys();

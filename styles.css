@@ -9,7 +9,7 @@ body {
     flex: none;
     height : 400px;
     width: 300px;
-    background-color: aqua;
+    background-color: rgb(96, 175, 228);
     border-radius: 10px;
     display:flex;
     flex-direction: column;
